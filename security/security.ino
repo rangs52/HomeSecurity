@@ -2,6 +2,8 @@
 RCSwitch radioReciever = RCSwitch();
 int debugCounter = 0;
 
+#define SIM300
+
 int deviceAddress[] = {
   8214352,  // Front Door
   14114128, // Back door
@@ -26,7 +28,11 @@ boolean  firstTimeTriggerStatus[NUM_OF_DEVICES] = {false}; //This keeps track wh
 void setup() {
   radioReciever.enableReceive(0);  // Receiver on inerrupt 0 => that is pin #2
   //Set up the GSM modem
+#ifdef SIM300
+  Serial.begin(9600); 
+#else
   Serial.begin(115200);  
+#endif
   Serial.println("AT"); //To check if GSM module is working
   delay(2000);
   Serial.println("AT+CMGF=1"); // set the SMS mode to text
