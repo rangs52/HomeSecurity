@@ -26,7 +26,7 @@ boolean  firstTimeTriggerStatus[NUM_OF_DEVICES] = {false}; //This keeps track wh
 void setup() {
   radioReciever.enableReceive(0);  // Receiver on inerrupt 0 => that is pin #2
   //Set up the GSM modem
-  Serial.begin(9600);  
+  Serial.begin(115200);  
   Serial.println("AT"); //To check if GSM module is working
   delay(2000);
   Serial.println("AT+CMGF=1"); // set the SMS mode to text
@@ -83,7 +83,9 @@ void sendAlertSMS(int deviceId) {
   Serial.print("+919443505195");
   Serial.write(34); //ASCII of "
   Serial.print("\r\n");
+  delay(100);    
   Serial.print(names[deviceId]);  
+  delay(100);  
   Serial.write(26); //ASCII of [ctrl + z]
   Serial.print("\r\n");
   delay(2500);  
